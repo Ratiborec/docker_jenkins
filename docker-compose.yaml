@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  master:
+    build:
+      context: jenkins/build
+    environment:
+      - "JAVA_OPTS=-Djenkins.install.runSetupWizard=false"
+    volumes:
+      - /var/lib/jenkins:/var/jenkins_home
+      - ./jenkins/jcasc.yaml:/jcasc/jcasc.yml
+  nginx:
+    image: nginx:1.19.6
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+    ports:
+      - 80:80
